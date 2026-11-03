@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tablón del equipo</title>
+  <style>
+    :root { color-scheme: dark; }
+    body {
+      margin: 0;
+      padding: 24px 16px 48px;
+      background: #0d1117;
+      color: #e6edf3;
+      font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    header { max-width: 900px; margin: 0 auto 28px; display: flex; align-items: center; gap: 16px; }
+    header img { width: 64px; height: auto; }
+    h1 { margin: 0; font-size: 1.6rem; }
+    header p { margin: 4px 0 0; color: #8b949e; }
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .tarjeta {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-top: 6px solid var(--color);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .tarjeta h2 { margin: 0; font-size: 1.2rem; }
+    .puesto { margin: 4px 0 12px; color: #8b949e; font-size: .9rem; }
+    .mensaje { margin: 0; line-height: 1.4; }
+    footer { max-width: 900px; margin: 32px auto 0; color: #8b949e; font-size: .85rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="img/logo.png" alt="MR Factory">
+    <div>
+      <h1>Tablón del equipo</h1>
+      <p>Web de práctica: cada uno cambia su tarjeta y Coke aprueba.</p>
+    </div>
+  </header>
+
+  <main id="tablon"></main>
+
+  <footer>Para cambiar tu tarjeta, edita <code>equipo.js</code>. Cómo, en README.md.</footer>
+
+  <script src="equipo.js"></script>
+  <script>
+    const tablon = document.getElementById("tablon");
+    for (const persona of EQUIPO) {
+      const tarjeta = document.createElement("article");
+      tarjeta.className = "tarjeta";
+      tarjeta.style.setProperty("--color", persona.color);
+      // textContent y no innerHTML: lo que escriba cada uno se muestra tal cual
+      for (const [etiqueta, clase, texto] of [
+        ["h2", "", persona.nombre],
+        ["p", "puesto", persona.puesto],
+        ["p", "mensaje", persona.mensaje],
+      ]) {
+        const el = document.createElement(etiqueta);
+        if (clase) el.className = clase;
+        el.textContent = texto;
+        tarjeta.appendChild(el);
+      }
+      tablon.appendChild(tarjeta);
+    }
+  </script>
+</body>
+</html>
