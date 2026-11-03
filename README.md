@@ -16,19 +16,21 @@ que instalar nada.
 **Nadie sube cambios directamente a `main`.** Todo cambio entra por un *Pull Request*
 (una propuesta de cambio) y Coke lo aprueba.
 
-## Cómo cambiar tu página (desde la web de GitHub, sin instalar nada)
+## Cómo cambiar tu página (con Claude Code)
 
-1. Entra en el repo en GitHub, abre la carpeta `paginas/` y luego **tu** fichero
-   (por ejemplo `vero.html`).
-2. Pulsa el lápiz ✏️ (*Edit this file*).
-3. Cambia lo que quieras entre las dos marcas ✏️: el título, los textos, la lista.
-   Más arriba hay otra marca ✏️ para cambiar tu color.
-4. Pulsa **Commit changes…**. Elige *Create a new branch for this commit and start a
-   pull request*, ponle un nombre (por ejemplo `vero-mi-pagina`) y confirma.
-5. En la pantalla siguiente pulsa **Create pull request**.
+Todo el equipo trabaja con **Claude Code**: le dices lo que quieres y él hace el git.
+Los pasos, con las frases exactas que hay que decirle, están en
+[`docs/INSTRUCCIONES_EQUIPO.pdf`](docs/INSTRUCCIONES_EQUIPO.pdf).
 
-Ya está. Coke recibe el aviso, lo revisa y lo acepta (o te pide un cambio en los
-comentarios del Pull Request).
+La versión corta, con Claude Code abierto en la carpeta del proyecto:
+
+1. «Soy Vero. Bájate lo último de main y crea una rama nueva llamada vero-titulo.»
+2. «En mi página cambia …»
+3. «Ábreme el tablón en el navegador.»
+4. «Sube mi cambio y crea un Pull Request para Coke.»
+
+Las reglas que tiene que seguir Claude están en `CLAUDE.md`, que lee solo al abrirse
+en esta carpeta.
 
 ## Cómo aprobarlo (Coke)
 
