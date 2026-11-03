@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Instrucciones para el equipo</title>
+<style>
+  @page { size: A4; margin: 13mm 15mm; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
+    color: #1d2128;
+    font-size: 11.5pt;
+    line-height: 1.4;
+  }
+  .page {
+    height: 271mm;
+    display: flex;
+    flex-direction: column;
+    page-break-after: always;
+    break-after: page;
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+  .contenido { flex: 1; }
+  .pie {
+    border-top: 1px solid #d0d7de;
+    padding-top: 2.5mm;
+    font-size: 8.5pt;
+    color: #6e7781;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .cabecera { display: flex; align-items: center; gap: 5mm; margin-bottom: 5mm; }
+  .cabecera img { width: 22mm; }
+  h1 { font-size: 24pt; margin: 0; line-height: 1.1; }
+  .sub { color: #57606a; margin: 1.5mm 0 0; font-size: 12pt; }
+  h2 {
+    font-size: 16pt;
+    margin: 0 0 4mm;
+    padding-bottom: 2mm;
+    border-bottom: 3px solid #1f6feb;
+  }
+  h3 { font-size: 12.5pt; margin: 5mm 0 2mm; }
+  p { margin: 0 0 3mm; }
+
+  /* Un paso: número, qué hacer, la frase y qué vas a ver */
+  .paso { display: flex; gap: 4mm; margin-bottom: 4.5mm; }
+  .num {
+    flex: none;
+    width: 9mm;
+    height: 9mm;
+    border-radius: 50%;
+    background: #1f6feb;
+    color: #fff;
+    font-weight: 700;
+    font-size: 12pt;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .num.letra { background: #57606a; }
+  .cuerpo { flex: 1; }
+  .cuerpo > b:first-child { display: block; margin-bottom: 1.2mm; }
+  .frase {
+    background: #f6f8fa;
+    border: 1px solid #d0d7de;
+    border-left: 5px solid #d97757;
+    border-radius: 6px;
+    padding: 2.2mm 3.5mm;
+    font-size: 12pt;
+    font-weight: 600;
+  }
+  .frase::before {
+    content: "Dile a Claude:";
+    display: block;
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #d97757;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    margin-bottom: .6mm;
+  }
+  .veras { color: #57606a; font-size: 10pt; margin-top: 1.2mm; }
+  .veras::before { content: "→ "; color: #1a7f37; font-weight: 700; }
+
+  code {
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: 10pt;
+    background: #f6f8fa;
+    border-radius: 3px;
+    padding: 0 1mm;
+  }
+
+  .caja { border-radius: 6px; padding: 3.5mm 4.5mm; margin: 4mm 0 0; }
+  .caja h3 { margin-top: 0; }
+  .caja ul { margin: 0; padding-left: 5mm; }
+  .caja li { margin-bottom: 1.5mm; }
+  .caja p:last-child { margin-bottom: 0; }
+  .azul { background: #ddf4ff; border: 1px solid #54aeff; }
+  .ambar { background: #fff8c5; border: 1px solid #d4a72c; }
+  .verde { background: #dafbe1; border: 1px solid #4ac26b; }
+
+  .reglas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin-top: 3mm; }
+  .regla { border: 1px solid #d0d7de; border-radius: 6px; padding: 3.5mm; }
+  .regla b { display: block; font-size: 12pt; margin-bottom: 1mm; }
+  .regla span { font-size: 10pt; color: #57606a; }
+
+  table.chuleta { width: 100%; border-collapse: collapse; font-size: 10.5pt; }
+  .chuleta td { padding: 1.8mm 2mm; border-bottom: 1px solid #eaeef2; vertical-align: top; }
+  .chuleta td:first-child { width: 33%; color: #57606a; }
+  .chuleta td:last-child { font-weight: 600; }
+
+  .enlaces { margin-top: 4mm; font-size: 10.5pt; }
+  .enlaces div { margin-bottom: 1.2mm; }
+  svg { display: block; }
+</style>
+</head>
+<body>
+
+<!-- ───────────── Página 1: la idea ───────────── -->
+<section class="page">
+  <div class="contenido">
+    <div class="cabecera">
+      <img src="../img/logo.png" alt="MR Factory">
+      <div>
+        <h1>Testing Pull requests</h1>
+        <p class="sub">Cómo cambiar tu página del tablón con Claude Code</p>
+      </div>
+    </div>
+
+    <p>Cada uno tiene <b>su propia página</b> en el tablón del equipo. Vamos a practicar
+    cómo se trabaja entre varios sin pisarnos.</p>
+    <p><b>No tienes que saber nada de GitHub.</b> Tú le dices a Claude Code lo que quieres
+    con las frases de estas hojas, y él hace todo lo demás. El proyecto ya le explica a
+    Claude las reglas, así que no se las tienes que contar tú.</p>
+
+    <h3>El camino de un cambio</h3>
+    <svg viewBox="0 0 600 250" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, Helvetica Neue, Arial, sans-serif">
+      <defs>
+        <marker id="flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0,0 L10,5 L0,10 z" fill="#57606a"/>
+        </marker>
+      </defs>
+      <text x="0" y="14" font-size="11" font-weight="700" fill="#57606a">TÚ, CON CLAUDE CODE</text>
+      <g font-size="12">
+        <rect x="0" y="24" width="135" height="70" rx="8" fill="#ddf4ff" stroke="#54aeff"/>
+        <text x="67.5" y="50" text-anchor="middle" font-weight="700">1. Empiezas</text>
+        <text x="67.5" y="68" text-anchor="middle">lo último + tu rama</text>
+        <text x="67.5" y="84" text-anchor="middle" font-size="10" fill="#d97757">«Soy Vero. Bájate…»</text>
+
+        <rect x="155" y="24" width="135" height="70" rx="8" fill="#ddf4ff" stroke="#54aeff"/>
+        <text x="222.5" y="50" text-anchor="middle" font-weight="700">2. Cambias</text>
+        <text x="222.5" y="68" text-anchor="middle">tu página</text>
+        <text x="222.5" y="84" text-anchor="middle" font-size="10" fill="#d97757">«En mi página…»</text>
+
+        <rect x="310" y="24" width="135" height="70" rx="8" fill="#ddf4ff" stroke="#54aeff"/>
+        <text x="377.5" y="50" text-anchor="middle" font-weight="700">3. Lo miras</text>
+        <text x="377.5" y="68" text-anchor="middle">en tu ordenador</text>
+        <text x="377.5" y="84" text-anchor="middle" font-size="10" fill="#d97757">«Ábreme el tablón»</text>
+
+        <rect x="465" y="24" width="135" height="70" rx="8" fill="#ddf4ff" stroke="#54aeff"/>
+        <text x="532.5" y="50" text-anchor="middle" font-weight="700">4. Lo subes</text>
+        <text x="532.5" y="68" text-anchor="middle">y pides permiso</text>
+        <text x="532.5" y="84" text-anchor="middle" font-size="10" fill="#d97757">«Sube mi cambio…»</text>
+      </g>
+      <g stroke="#57606a" stroke-width="1.6" marker-end="url(#flecha)">
+        <line x1="136" y1="59" x2="153" y2="59"/>
+        <line x1="291" y1="59" x2="308" y2="59"/>
+        <line x1="446" y1="59" x2="463" y2="59"/>
+        <path d="M532.5,95 L532.5,150" fill="none"/>
+      </g>
+
+      <text x="0" y="140" font-size="11" font-weight="700" fill="#57606a">EN GITHUB</text>
+      <g font-size="12">
+        <rect x="155" y="152" width="135" height="70" rx="8" fill="#dafbe1" stroke="#4ac26b"/>
+        <text x="222.5" y="178" text-anchor="middle" font-weight="700">6. Sale en</text>
+        <text x="222.5" y="196" text-anchor="middle">la web</text>
+        <text x="222.5" y="212" text-anchor="middle" font-size="10" fill="#57606a">en 1 o 2 minutos</text>
+
+        <rect x="390" y="152" width="210" height="70" rx="8" fill="#fff8c5" stroke="#d4a72c"/>
+        <text x="495" y="178" text-anchor="middle" font-weight="700">5. Coke lo revisa</text>
+        <text x="495" y="196" text-anchor="middle">y lo aprueba</text>
+        <text x="495" y="212" text-anchor="middle" font-size="10" fill="#57606a">o te pide un cambio</text>
+      </g>
+      <line x1="389" y1="187" x2="292" y2="187" stroke="#57606a" stroke-width="1.6" marker-end="url(#flecha)"/>
+      <text x="300" y="245" text-anchor="middle" font-size="10.5" fill="#57606a">Si Coke te pide un cambio, Claude lo arregla en tu misma rama y lo vuelve a subir.</text>
+    </svg>
+
+    <h3>Las tres reglas</h3>
+    <div class="reglas">
+      <div class="regla"><b>Solo tu página</b><span>Si Claude te dice que no puede tocar otra cosa, es normal: es la regla.</span></div>
+      <div class="regla"><b>Siempre en tu rama</b><span>Nadie trabaja en <code>main</code>, la versión buena. Claude lo sabe.</span></div>
+      <div class="regla"><b>Siempre pidiendo permiso</b><span>Todo entra por un Pull Request que aprueba Coke.</span></div>
+    </div>
+
+    <div class="caja azul">
+      <h3>Palabras que vas a oír</h3>
+      <ul>
+        <li><b>Rama:</b> tu copia de trabajo. Lo que hagas ahí no toca lo de nadie.</li>
+        <li><b>Pull Request:</b> «he cambiado esto, ¿lo metes?». Es la petición de permiso.</li>
+        <li><b>main:</b> la versión buena, la que sale en la web. Solo entra lo aprobado.</li>
+      </ul>
+    </div>
+
+    <div class="enlaces">
+      <div><b>La web del tablón:</b> mrfactory-es.github.io/039_PRUEBA_EQUIPO</div>
+      <div><b>El proyecto en GitHub:</b> github.com/MRFactory-ES/039_PRUEBA_EQUIPO</div>
+    </div>
+  </div>
+  <div class="pie"><span>MR Factory · 039_PRUEBA_EQUIPO · Instrucciones para el equipo</span><span>1 / 4</span></div>
+</section>
+
+<!-- ───────────── Página 2: preparar (una sola vez) ───────────── -->
+<section class="page">
+  <div class="contenido">
+    <h2>Antes de empezar · solo la primera vez</h2>
+    <p>Sirve igual en Mac y en PC.</p>
+
+    <div class="paso"><div class="num letra">A</div><div class="cuerpo">
+      <b>Hazte una cuenta en GitHub</b>
+      En <code>github.com</code>, si no la tienes. Pásale a Coke tu <b>nombre de usuario</b>.
+    </div></div>
+
+    <div class="paso"><div class="num letra">B</div><div class="cuerpo">
+      <b>Acepta la invitación a MRFactory-ES</b>
+      Te llegará por correo. Sin esto no podrás bajar el proyecto.
+    </div></div>
+
+    <div class="paso"><div class="num letra">C</div><div class="cuerpo">
+      <b>Prepara tu ordenador.</b> Abre Claude Code en cualquier carpeta y escribe:
+      <div class="frase">Comprueba si tengo instalados git y GitHub CLI. Si falta algo, instálalo y ayúdame a iniciar sesión en GitHub con mi cuenta.</div>
+      <div class="veras">Se abrirá el navegador: pega el código que te dé y acepta. Si Claude te pide que escribas tú un comando en la terminal, hazlo.</div>
+    </div></div>
+
+    <div class="paso"><div class="num letra">D</div><div class="cuerpo">
+      <b>Baja el proyecto a tu ordenador.</b>
+      <div class="frase">Clona el repositorio github.com/MRFactory-ES/039_PRUEBA_EQUIPO en mi carpeta Documentos.</div>
+      <div class="veras">Aparece la carpeta <b>039_PRUEBA_EQUIPO</b> dentro de Documentos.</div>
+    </div></div>
+
+    <div class="paso"><div class="num letra">E</div><div class="cuerpo">
+      <b>Abre Claude Code dentro de esa carpeta.</b>
+      En la app, al crear la sesión, elige la carpeta <b>Documentos / 039_PRUEBA_EQUIPO</b>.
+      En la terminal, entra en esa carpeta y escribe <code>claude</code>.
+      <div class="veras">A partir de ahora, <b>siempre</b> abre Claude Code en esa carpeta. Así lee las reglas del proyecto.</div>
+    </div></div>
+
+    <div class="caja verde">
+      <h3>¿Ha ido bien?</h3>
+      <div class="frase">Comprueba que está todo listo: git, mi sesión de GitHub y el proyecto.</div>
+      <p style="margin-top:2mm">Si Claude dice que sí, ya puedes pasar a la página siguiente.</p>
+    </div>
+
+    <div class="caja ambar">
+      <h3>Claude te pedirá permiso</h3>
+      <p>Antes de ejecutar cosas como <code>git</code> o <code>gh</code>, Claude te pregunta si le
+      dejas. Para este proyecto, <b>acepta</b>: es justo lo que le has pedido.</p>
+    </div>
+  </div>
+  <div class="pie"><span>MR Factory · 039_PRUEBA_EQUIPO · Instrucciones para el equipo</span><span>2 / 4</span></div>
+</section>
+
+<!-- ───────────── Página 3: cada cambio ───────────── -->
+<section class="page">
+  <div class="contenido">
+    <h2>Cada vez que quieras cambiar algo</h2>
+    <p>En los ejemplos sale <b>Vero</b>: pon <b>tu nombre</b>. Y en la frase 2, lo que
+    tú quieras cambiar.</p>
+
+    <div class="paso"><div class="num">1</div><div class="cuerpo">
+      <b>Bajar lo último y crear tu rama</b>
+      <div class="frase">Soy Vero. Bájate lo último de main y crea una rama nueva llamada vero-titulo.</div>
+      <div class="veras">Claude te dice que ya estás en tu rama <b>vero-titulo</b>. El nombre de la
+      rama: tu nombre y qué vas a cambiar, sin espacios ni tildes.</div>
+    </div></div>
+
+    <div class="paso"><div class="num">2</div><div class="cuerpo">
+      <b>Cambiar tu página</b>
+      <div class="frase">En mi página cambia el título por "Hola desde Claude" y pon mi color en naranja.</div>
+      <div class="veras">Claude te dice qué ha cambiado. Puedes pedir lo que quieras de tu
+      página: textos, la lista, el color, añadir cosas…</div>
+    </div></div>
+
+    <div class="paso"><div class="num">3</div><div class="cuerpo">
+      <b>Verlo en tu ordenador</b>
+      <div class="frase">Ábreme el tablón en el navegador.</div>
+      <div class="veras">Se abre el tablón. Pulsa tu tarjeta y verás tu página con el cambio.
+      ¿No te gusta? Vuelve a la frase 2 y pide otra cosa. Esto solo lo ves tú.</div>
+    </div></div>
+
+    <div class="paso"><div class="num">4</div><div class="cuerpo">
+      <b>Subirlo y pedir permiso</b>
+      <div class="frase">Sube mi cambio y crea un Pull Request para Coke.</div>
+      <div class="veras">Claude te da un <b>enlace</b> a tu Pull Request. Ya está: a Coke le
+      llega el aviso. La web del equipo no cambia hasta que Coke lo apruebe.</div>
+    </div></div>
+
+    <div class="caja azul">
+      <h3>Puedes hablarle normal</h3>
+      <p>Las frases son para no dudar, pero Claude entiende lo mismo dicho con tus palabras.
+      Si no sabes cómo pedir algo, pregúntale: <b>«¿cómo hago para…?»</b></p>
+    </div>
+  </div>
+  <div class="pie"><span>MR Factory · 039_PRUEBA_EQUIPO · Instrucciones para el equipo</span><span>3 / 4</span></div>
+</section>
+
+<!-- ───────────── Página 4: después de subir ───────────── -->
+<section class="page">
+  <div class="contenido">
+    <h2>Después de subirlo</h2>
+
+    <div class="paso"><div class="num">5</div><div class="cuerpo">
+      <b>Si Coke te pide un cambio</b>
+      Te llega un aviso de GitHub con su comentario.
+      <div class="frase">Lee lo que dice Coke en mi Pull Request y arréglalo.</div>
+      <div class="veras">Claude lo arregla en tu misma rama y lo sube. El Pull Request se
+      actualiza solo: no hay que crear otro.</div>
+    </div></div>
+
+    <div class="paso"><div class="num">6</div><div class="cuerpo">
+      <b>Cuando Coke lo aprueba</b>
+      En 1 o 2 minutos tu cambio sale en la web del tablón. Luego:
+      <div class="frase">Coke ya lo ha aprobado. Vuelve a main y bájate lo último.</div>
+      <div class="veras">Listo para el siguiente cambio: vuelves a la frase 1 con una rama nueva.</div>
+    </div></div>
+
+    <div class="caja ambar">
+      <h3>Si algo sale raro</h3>
+      <div class="frase">Explícame qué ha pasado, sin tocar nada.</div>
+      <ul style="margin-top:2.5mm">
+        <li><b>Claude habla de un «conflicto»:</b> otra persona ha cambiado lo mismo que tú.
+          Avisa a Coke y lo resolvéis juntos.</li>
+        <li><b>Claude no encuentra tu página o no sabe quién eres:</b> ¿has abierto Claude Code
+          dentro de la carpeta 039_PRUEBA_EQUIPO? (paso E).</li>
+      </ul>
+    </div>
+
+    <h3>Chuleta: todas las frases</h3>
+    <table class="chuleta">
+      <tr><td>Empezar</td><td>Soy Vero. Bájate lo último de main y crea una rama nueva llamada vero-titulo.</td></tr>
+      <tr><td>Cambiar</td><td>En mi página cambia … </td></tr>
+      <tr><td>Ver</td><td>Ábreme el tablón en el navegador.</td></tr>
+      <tr><td>Subir</td><td>Sube mi cambio y crea un Pull Request para Coke.</td></tr>
+      <tr><td>Coke pide cambios</td><td>Lee lo que dice Coke en mi Pull Request y arréglalo.</td></tr>
+      <tr><td>Coke lo aprueba</td><td>Coke ya lo ha aprobado. Vuelve a main y bájate lo último.</td></tr>
+      <tr><td>Algo raro</td><td>Explícame qué ha pasado, sin tocar nada.</td></tr>
+    </table>
+  </div>
+  <div class="pie"><span>MR Factory · 039_PRUEBA_EQUIPO · Instrucciones para el equipo</span><span>4 / 4</span></div>
+</section>
+
+</body>
+</html>
