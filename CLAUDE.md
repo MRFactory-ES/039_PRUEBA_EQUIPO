@@ -15,6 +15,10 @@ organización `MRFactory-ES`, publicada en `https://mrfactory-es.github.io/039_P
 - **Los propietarios de la organización son admins de todos sus repos** sin que nadie
   se lo dé: `JoeCode5050` y `MRFactoryAI`. Por eso `enforce_admins` tiene que estar
   activado; si no, pueden subir a `main` sin pasar por revisión.
-- Cada persona toca solo su bloque de `equipo.js`. Los bloques van separados por
-  líneas de comentario para que dos cambios en bloques distintos no choquen.
+- Cada persona toca solo su página, `paginas/<nombre>.html`: un fichero por persona
+  para que dos cambios de personas distintas nunca choquen. Las páginas no comparten
+  CSS a propósito, por el mismo motivo. `equipo.js` solo lista quién sale en el
+  tablón y no es parte de las prácticas.
+- Las 7 personas de la prueba (03/11/2026): Juan Luis, Coke, Vero, Justo, Inés,
+  Teresa y Agus. Joe no tiene tarjeta: es el que aprueba lo de Coke.
 - Remoto con el usuario dentro: `https://cokemomoMR@github.com/MRFactory-ES/039_PRUEBA_EQUIPO.git`.

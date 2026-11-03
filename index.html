@@ -25,15 +25,18 @@
       gap: 16px;
     }
     .tarjeta {
+      display: block;
       background: #161b22;
       border: 1px solid #30363d;
       border-top: 6px solid var(--color);
       border-radius: 10px;
       padding: 16px;
+      color: inherit;
+      text-decoration: none;
     }
+    .tarjeta:hover { border-color: var(--color); }
     .tarjeta h2 { margin: 0; font-size: 1.2rem; }
-    .puesto { margin: 4px 0 12px; color: #8b949e; font-size: .9rem; }
-    .mensaje { margin: 0; line-height: 1.4; }
+    .abrir { margin: 8px 0 0; color: #8b949e; font-size: .9rem; }
     footer { max-width: 900px; margin: 32px auto 0; color: #8b949e; font-size: .85rem; }
   </style>
 </head>
@@ -42,32 +45,28 @@
     <img src="img/logo.png" alt="MR Factory">
     <div>
       <h1>Tablón del equipo</h1>
-      <p>Web de práctica: cada uno cambia su tarjeta y Coke aprueba.</p>
+      <p>Testing Pull requests</p>
     </div>
   </header>
 
   <main id="tablon"></main>
 
-  <footer>Para cambiar tu tarjeta, edita <code>equipo.js</code>. Cómo, en README.md.</footer>
+  <footer>Cada uno cambia su página, en la carpeta <code>paginas/</code>. Cómo, en README.md.</footer>
 
   <script src="equipo.js"></script>
   <script>
     const tablon = document.getElementById("tablon");
     for (const persona of EQUIPO) {
-      const tarjeta = document.createElement("article");
+      const tarjeta = document.createElement("a");
       tarjeta.className = "tarjeta";
+      tarjeta.href = persona.pagina;
       tarjeta.style.setProperty("--color", persona.color);
-      // textContent y no innerHTML: lo que escriba cada uno se muestra tal cual
-      for (const [etiqueta, clase, texto] of [
-        ["h2", "", persona.nombre],
-        ["p", "puesto", persona.puesto],
-        ["p", "mensaje", persona.mensaje],
-      ]) {
-        const el = document.createElement(etiqueta);
-        if (clase) el.className = clase;
-        el.textContent = texto;
-        tarjeta.appendChild(el);
-      }
+      const nombre = document.createElement("h2");
+      nombre.textContent = persona.nombre;
+      const abrir = document.createElement("p");
+      abrir.className = "abrir";
+      abrir.textContent = "Abrir página →";
+      tarjeta.append(nombre, abrir);
       tablon.appendChild(tarjeta);
     }
   </script>
